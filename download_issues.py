@@ -3,6 +3,7 @@
 from git.repo.base import NoSuchPathError, Repo
 import json
 import logging
+from operator import itemgetter
 import requests
 import shutil
 
@@ -47,6 +48,7 @@ def download_issues():
             js = response.json()
             result += js
 
+    result.sort(key=itemgetter('repository_url'))
     with open(issues_json_path, 'w+') as f:
         f.write(json.dumps(result, ensure_ascii=False, indent=2))
 
