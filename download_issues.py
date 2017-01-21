@@ -7,7 +7,7 @@ import requests
 import shutil
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%I:%M:%S %p')
-issues_json_path = './issues.json'
+issues_json_path = './_data/issues.json'
 
 
 def download_issues():
