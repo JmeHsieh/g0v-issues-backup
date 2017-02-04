@@ -7,7 +7,9 @@ from operator import itemgetter
 import requests
 import shutil
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%I:%M:%S %p')
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(message)s',
+                    datefmt='%I:%M:%S %p')
 issues_json_path = './_data/issues.json'
 
 
@@ -28,7 +30,8 @@ def download_issues():
 
     # download repo list
     logging.info('==== Download Repo Infos ====')
-    repos_url = 'https://raw.githubusercontent.com/g0v-data/repo-info/gh-pages/repo_info.json'
+    repos_url = ('https://raw.githubusercontent.com/'
+                 'g0v-data/repo-info/gh-pages/repo_info.json')
     repos = requests.get(repos_url).json()
 
     # download issues
@@ -48,9 +51,11 @@ def download_issues():
             js = response.json()
             result += js
 
-    result.sort(key=itemgetter('repository_url'))
     with open(issues_json_path, 'w+') as f:
-        f.write(json.dumps(result, ensure_ascii=False, indent=2))
+        f.write(json.dumps(result,
+                           ensure_ascii=False,
+                           indent=2,
+                           sort_keys=True))
 
     logging.info('===== Download Issues Complete =====\n\n')
 
